@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+
+defaultTasks 'clean', 'build', 'eclipse'
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.1.6'
+	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+}
+
+task createDirs {
+	def groovySrcDirs = sourceSets*.groovy.srcDirs
+	def resourceDirs = sourceSets*.resources.srcDirs
+	
+	outputs.files groovySrcDirs + resourceDirs  
+	
+	doLast{
+		groovySrcDirs*.each { it.mkdirs() }
+		resourceDirs*.each { it.mkdirs() }
+	}
+}
+
+compileJava.dependsOn createDirs
+
+task init(dependsOn: ['build', 'eclipse']) 
+

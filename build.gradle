@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://dl.bintray.com/pledbrook/plugins"
+        }
+    }
+
+    dependencies {
+        classpath "uk.co.cacoethes:lazybones-gradle:1.0.4"
+    }
+}
+
+apply plugin: "lazybones-templates"
+
+lazybones {
+
+    repositoryUrl = "https://api.bintray.com/content/ancho/lazybones-templates"
+
+    repositoryUsername = project.bintrayUserName
+    repositoryApiKey = project.bintrayKey
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "1.12"
+}

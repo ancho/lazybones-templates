@@ -1,7 +1,12 @@
 *.swp
+*.iml
+*.ipr
+*.iws
+
 .gradle
-build
-gradle.properties
 .project
 .classpath
 .settings
+
+build
+gradle.properties

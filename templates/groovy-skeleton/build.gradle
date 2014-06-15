@@ -1,29 +1,26 @@
 apply plugin: 'groovy'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group '${group}'
+version '${version}'
 
 defaultTasks 'clean', 'build', 'eclipse'
+
 repositories {
-	mavenCentral()
+	jcenter()
 }
 
 dependencies {
-	compile 'org.codehaus.groovy:groovy-all:2.1.6'
+	compile 'org.codehaus.groovy:groovy-all:2.3.3'
 	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
-task createDirs {
-	def groovySrcDirs = sourceSets*.groovy.srcDirs
-	def resourceDirs = sourceSets*.resources.srcDirs
-	
-	outputs.files groovySrcDirs + resourceDirs  
-	
-	doLast{
-		groovySrcDirs*.each { it.mkdirs() }
-		resourceDirs*.each { it.mkdirs() }
-	}
+task openTestReport(type: Exec) {
+    description 'Open generated TestReport in your browser'
+    def reportDir = test.reports.html.destination
+
+    executable "${browserExecutable}"
+    args "file://\${reportDir}/index.html"
 }
 
-compileJava.dependsOn createDirs
-
-task init(dependsOn: ['build', 'eclipse']) 
 

@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "uk.co.cacoethes:lazybones-gradle:1.0.4"
+        classpath "uk.co.cacoethes:lazybones-gradle:1.1"
     }
 }
 
@@ -22,5 +22,5 @@ lazybones {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.12"
+    gradleVersion = "2.0"
 }

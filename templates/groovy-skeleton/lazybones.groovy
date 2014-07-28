@@ -24,7 +24,7 @@ def copySkeleton = { String skeletonName, String path ->
 
 def copySkeletons = {
     def spockSpecTemplate = "GroovyTest.tmpl"
-    def spockSpecDestination = "src/test/groovy/${props.group.replaceAll('\\.','/')}/SampleSpecification.groovy"
+    def spockSpecDestination = "src/test/groovy/${props.group.replace('.','/')}/SampleSpecification.groovy"
 
     copySkeleton( spockSpecTemplate, spockSpecDestination )
 }

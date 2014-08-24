@@ -1,0 +1,6 @@
+= ${projectName} - ${version}
+${author} <${email}>
+
+== Synopsis
+
+This project needs somes description...

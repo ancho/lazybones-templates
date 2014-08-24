@@ -1,0 +1,60 @@
+= Groovy-Skeleton
+
+This is a groovy project skeleton for lazybones.
+
+Simply hit ```gradle tasks``` to see what's possible and have fun!
+
+== Features
+
+* groovy library version 2.3.6
+* spock-core version 0.7-groovy-2.0
+* ```gradle openTestReport``` Task +
+   Opens generated TestReport with your specified Browser
+
+== Subtemplates
+
+=== asciidoctor
+
+[source, bash]
+----
+lazybones generate asciidoctor
+----
+
+Genearates a `doc` directory with a gradle driven asciidoctor subproject.
+You can skip the questions by specifying the following Properties on commandline:
+
+* author - The Documentation Author
+* email  - The Email-Address of the Author
+    
+   
+== Structure
+
+[literal]
+....
+├── build.gradle
+├── doc
+│   ├── build.gradle
+│   ├── gradle
+│   │   ├── asciidoctor.gradle
+│   │   └── wrapper
+│   │       ├── gradle-wrapper.jar
+│   │       └── gradle-wrapper.properties
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── settings.gradle
+│   └── src
+│       └── asciidoc
+│           └── index.adoc
+├── README.md
+├── settings.gradle
+└── src
+    ├── main
+    │   ├── groovy
+    │   └── resources
+    └── test
+        ├── groovy
+        │   └── org
+        │       └── example
+        │           └── SampleSpecification.groovy
+        └── resources
+....

@@ -19,6 +19,8 @@ lazybones {
 
     repositoryUsername = project.bintrayUserName
     repositoryApiKey = project.bintrayKey
+
+    template "groovy-skeleton" includes "asciidoctor"
 }
 
 task wrapper(type: Wrapper) {

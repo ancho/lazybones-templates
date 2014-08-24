@@ -1,0 +1,12 @@
+= Subtemplate Asciidoctor
+
+A lazybones subtemplate to generate a asciidoctor subproject.
+
+Run ```lazybones generate asciidoctor``` in the main project that includes this Subtemplate.
+Run ```gradle asciidoctor``` to generate your documentation.
+
+== Features
+
+* asciidoctor 1.5.0
+* Replaces the Main-Section with your projects name
+* Asks for an author and an emailaddress

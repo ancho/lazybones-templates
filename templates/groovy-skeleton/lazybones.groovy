@@ -1,14 +1,18 @@
-def projectDir = targetDir as File
+//def projectDir = targetDir as File
 def props = [:]
+
+def projectName = projectDir.getName()
 
 def askQuestions = {
     props.group = ask("Define value for 'group' [org.example]: ", "org.example", "group")
     props.version = ask("Define value for 'version' [0.1]: ", "0.1", "version")
     props.browserExecutable = ask("Location of Browser executable [/usr/bin/firefox]: ", "/usr/bin/firefox", "browserExecutable")
+    props.name = ask("Projectname [$projectName]: ", projectName, "name" )
 }
 
 def processTemplates = {
     processTemplates "build.gradle", props
+    processTemplates "settings.gradle", props
     processTemplates "skel/*", props
 }
 

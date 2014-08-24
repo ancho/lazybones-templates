@@ -1,0 +1,14 @@
+apply plugin: 'org.asciidoctor.gradle.asciidoctor'
+
+asciidoctor {
+    outputDir = new File("$buildDir/docs")
+    options = [
+        attributes: [
+            'source-highlighter': 'coderay',
+            toc: 'left',
+            idprefix: '',
+            idseparator: '-',
+            linkcss: true
+        ],
+    ]
+}

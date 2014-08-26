@@ -1,0 +1,14 @@
+//adds external asciidoc Pligin to the buildprocess
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.0'
+    }
+}
+
+//externalized pligin configurtation
+apply from: 'gradle/asciidoctor.gradle'
+

@@ -1,0 +1,5 @@
+= ${projectName}
+
+== Synopsis
+
+This project needs somes description...

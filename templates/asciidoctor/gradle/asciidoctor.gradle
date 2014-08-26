@@ -1,0 +1,17 @@
+apply plugin: 'org.asciidoctor.gradle.asciidoctor'
+
+asciidoctor {
+    outputDir = new File("\$buildDir/docs")
+    options = [
+        attributes: [
+            'source-highlighter': 'coderay',
+            'revnumber': "\${project.version}",
+            <% if (!email) {%>// <% } %>'email': "\${project.email}",
+            <% if (!author) {%>// <% } %>'author': "\${project.author}",
+            toc: 'left',
+            idprefix: '',
+            idseparator: '-',
+            linkcss: true
+        ],
+    ]
+}

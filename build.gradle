@@ -1,26 +1,27 @@
 buildscript {
     repositories {
+        jcenter()
         maven {
             url "http://dl.bintray.com/pledbrook/plugins"
         }
     }
 
     dependencies {
-        classpath "uk.co.cacoethes:lazybones-gradle:1.1"
+        classpath "uk.co.cacoethes:lazybones-gradle:1.2.2"
+        classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.6'
     }
 }
 
-apply plugin: "lazybones-templates"
+apply plugin: "uk.co.cacoethes.lazybones-templates"
 apply plugin: "idea"
 
 lazybones {
 
-    repositoryUrl = "https://api.bintray.com/content/ancho/lazybones-templates"
-
+    repositoryName = "ancho/lazybones-templates"
     repositoryUsername = project.bintrayUserName
     repositoryApiKey = project.bintrayKey
 
-    template "groovy-skeleton" includes "asciidoctor"
+    template 'groovy-skeleton' includes 'asciidoctor'
 }
 
 task wrapper(type: Wrapper) {

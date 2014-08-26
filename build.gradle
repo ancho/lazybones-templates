@@ -17,8 +17,7 @@ apply plugin: "idea"
 
 lazybones {
 
-    repositoryUrl = "https://api.bintray.com/content/ancho/lazybones-templates"
-
+    repositoryName = "ancho/lazybones-templates"
     repositoryUsername = project.bintrayUserName
     repositoryApiKey = project.bintrayKey
 

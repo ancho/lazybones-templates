@@ -1,7 +1,7 @@
 apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 
 asciidoctor {
-    <%if (!diagram) {%> // <% } %>requires = ['asciidoctor-diagram']
+    <% if (!diagram) {%>// <% } %>requires = ['asciidoctor-diagram']
     outputDir = file("\$buildDir/docs")
     options = [
         attributes: [

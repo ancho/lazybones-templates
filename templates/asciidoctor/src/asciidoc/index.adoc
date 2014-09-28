@@ -1,5 +1,56 @@
-= ${projectName}
+= asciidoctor-diagrams
 
-== Synopsis
+== Diagramme
 
-This project needs somes description...
+Ich komme ja in letzter Zeit vor Begeisterung nicht mehr ganz klar, muss ich zugeben.
+Jeden Tag entdecke ich ein neues Tool, oder ein faszinierendes Plugin für ein Tool das ich bereits verwende.
+
+So auch die https://github.com/asciidoctor/asciidoctor-diagram[Asciidoctor Diagram Erweiterung] auf die ich sehr gespannt
+ bin.
+
+=== Installation
+[listing]
+----
+gem install asciidoctor-diagram
+----
+
+Thats it. Damit sollte es theoretisch möglich sein Diagramme zu erzeugen.
+
+== Beispiele
+
+=== Plantum
+
+Geklaut aus der Projekt-README :)
+
+["plantuml", "asciidoctor-diagram-classes", "png"]
+---------------------------------------------------------------------
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+---------------------------------------------------------------------
+
+=== Sequenzdiagramm
+
+["plantuml", "sequenz", "png"]
+---------------------------------------------------------------------
+Bob -> Alice : hello
+
+activate Alice
+
+create Other
+Alice -> Other : new
+
+create control String
+Alice -> String
+note right : You can also put notes!
+
+Alice --> Bob : ok
+deactivate Alice
+
+Bob -> Other : doit
+---------------------------------------------------------------------

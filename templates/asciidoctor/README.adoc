@@ -6,8 +6,8 @@ Run ```gradle asciidoctor``` to generate your documentation.
 
 == Features
 
-* asciidoctor 1.5.0
-* asciidoctor-diagram 1.2.0 via gemPath
+* asciidoctor 1.5.2
+* asciidoctor-diagram via gemPath
 
 To use asciidoctor-diagram install via gem.
 Set gemPath in gradle.properties to your ruby gems location ( gemPath=/var/lib/gems/1.9.1 )

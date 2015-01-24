@@ -17,7 +17,7 @@ if ( props.diagram ) {
 }
 
 def processTemplates = {
-    def templateFile = "doc/src/asciidoc/index.adoc"
+    def templateFile = "doc/src/docs/asciidoc/index.adoc"
     processTemplates(templateFile, props)
     def propertiesFile = "doc/gradle.properties"
     processTemplates(propertiesFile, props)

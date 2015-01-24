@@ -1,5 +1,5 @@
 plugins {
-    id "org.asciidoctor.gradle.asciidoctor" version "1.5.0"
+    id "org.asciidoctor.convert" version "1.5.2"
 }
 
 //externalized pligin configurtation

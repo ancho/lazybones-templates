@@ -1,23 +1,24 @@
-apply plugin: 'org.asciidoctor.gradle.asciidoctor'
+apply plugin: 'org.asciidoctor.convert'
 
 asciidoctor {
-    <% if (!diagram) {%>// <% } %>requires = ['asciidoctor-diagram']
-    outputDir = file("\$buildDir/docs")
-    options = [
-        attributes: [
-            'source-highlighter': 'coderay',
-            'revnumber': "\${project.version}",
-            <% if (!email) {%>// <% } %>'email': "\${project.email}",
-            <% if (!author) {%>// <% } %>'author': "\${project.author}",
-            toc: 'left',
-            idprefix: '',
-            idseparator: '-',
-            linkcss: 'true',
-            icons: 'font',
-            imagesdir: "\$outputDir/images"
-        ]
-    ]
-    logDocuments = true
+    <% if (!diagram) {%>// <% } %>requires 'asciidoctor-diagram'
+
+    logDocuments true
+    
+    outputDir "\$buildDir/docs"
+
+    attributes 'source-highlighter' : 'coderay',
+               'revnumber'          : "\${project.version}",
+               <% if (!email) {%>// <% } %>'email'              : "\${project.email}",
+               <% if (!author) {%>// <% } %>'author'             : "\${project.author}",
+               toc                  : 'left',
+               idprefix             : '',
+               idseparator          : '-',
+               linkcss              : 'true',
+               icons                : 'font',
+               imagesdir            : "\$outputDir/images",
+               encoding             : 'utf-8'
+    
 }
 
 task determineGemPath() {

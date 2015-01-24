@@ -1,5 +1,5 @@
 plugins {
-      id "uk.co.cacoethes.lazybones-templates" version "1.2.2"
+      id "uk.co.cacoethes.lazybones-templates" version "1.2.3"
 }
 
 apply plugin: "uk.co.cacoethes.lazybones-templates"
@@ -12,8 +12,4 @@ lazybones {
     repositoryApiKey = project.bintrayKey
 
     template 'groovy-skeleton' includes 'asciidoctor'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "2.1"
 }

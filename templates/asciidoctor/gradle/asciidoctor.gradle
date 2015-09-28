@@ -4,7 +4,7 @@ asciidoctor {
     <% if (!diagram) {%>// <% } %>requires 'asciidoctor-diagram'
 
     logDocuments true
-    
+
     outputDir "\$buildDir/docs"
 
     attributes 'source-highlighter' : 'coderay',
@@ -16,29 +16,29 @@ asciidoctor {
                idseparator          : '-',
                linkcss              : 'true',
                icons                : 'font',
-               imagesdir            : "\$outputDir/images",
+               imagesdir            : "images",
                encoding             : 'utf-8'
-    
+
 }
 
 task determineGemPath() {
 
     doLast{
         def gem_path = project.hasProperty('gemPath') ? project.gemPath : System.env["GEM_PATH"]
-                
+
         if ( !gem_path ) {
             def msg = """
-                     
+
                 Set GEM_PATH to your ruby gems location. (ex: export GEM_PATH=/var/lib/gems/1.9.1/)
                 Or add the Property gemPath to gradle.properties
             """
-            println msg 
+            println msg
             gem_path = 'vendor'
         }
-        
+
         asciidoctor.gemPath = file(gem_path)
     }
-    
+
 }
 
 asciidoctor.dependsOn determineGemPath

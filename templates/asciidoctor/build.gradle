@@ -1,8 +1,7 @@
 plugins {
-    id "org.asciidoctor.convert" version "1.5.2"
+    id "org.asciidoctor.convert" version "1.5.3"
 }
 
-//externalized pligin configurtation
+//externalized plugin configuration
 apply from: 'gradle/asciidoctor.gradle'
 apply plugin: 'idea'
-

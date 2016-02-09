@@ -1,7 +1,22 @@
 apply plugin: 'org.asciidoctor.convert'
 
+dependencies {
+  asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.3.1'
+  asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
+}
+
+asciidoctorj {
+  version "1.5.4"
+}
+
 asciidoctor {
-    <% if (!diagram) {%>// <% } %>requires 'asciidoctor-diagram'
+    <% if (!diagram) {%>// <% } %>requires = ['asciidoctor-diagram']
+
+    backends =  ['html5', 'pdf']
+
+    sources {
+      include 'index.adoc'
+    }
 
     logDocuments true
 
@@ -16,29 +31,15 @@ asciidoctor {
                idseparator          : '-',
                linkcss              : 'true',
                icons                : 'font',
-               imagesdir            : "images",
+               imagesdir            : "./images",
+               // The imagesoutdir is needed to include the generated diagrams
+               // into the pdf.
+               // asciidoctorj-diagram places the generated images
+               // at <outputDir>/pdf/images but the images are expected at
+               // <sourceDir/images by the pdf backend while generating the
+               // pdf. See https://github.com/asciidoctor/asciidoctor-diagram/issues/39
+               // and https://github.com/asciidoctor/asciidoctor-diagram/pull/53
+               imagesoutdir         : "./images",
                encoding             : 'utf-8'
 
 }
-
-task determineGemPath() {
-
-    doLast{
-        def gem_path = project.hasProperty('gemPath') ? project.gemPath : System.env["GEM_PATH"]
-
-        if ( !gem_path ) {
-            def msg = """
-
-                Set GEM_PATH to your ruby gems location. (ex: export GEM_PATH=/var/lib/gems/1.9.1/)
-                Or add the Property gemPath to gradle.properties
-            """
-            println msg
-            gem_path = 'vendor'
-        }
-
-        asciidoctor.gemPath = file(gem_path)
-    }
-
-}
-
-asciidoctor.dependsOn determineGemPath

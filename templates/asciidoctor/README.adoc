@@ -1,8 +1,8 @@
 = Simple gradle Asciidoctor Template
 
-A lazybones template to generate a gradle based asciidoctor project.
+A sample project to generate a gradle based asciidoctor project.
 
-Run ```gradle asciidoctor``` to generate your documentation.
+Run ```gradle docs``` to generate your documentation.
 
 == Features
 

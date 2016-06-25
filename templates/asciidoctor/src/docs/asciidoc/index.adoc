@@ -1,4 +1,7 @@
 = ${projectName}
+:plantuml-url: http://plantuml.sourceforge.net
+
+Using asciidoctorj version {asciidoctor-version}
 
 include::images.adoc[]
 

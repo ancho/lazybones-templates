@@ -1,45 +1,61 @@
+import org.asciidoctor.gradle.AsciidoctorTask
+
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+  }
+}
+
 apply plugin: 'org.asciidoctor.convert'
 
-dependencies {
-  asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.3.1'
-  asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
-}
-
 asciidoctorj {
-  version "1.5.4"
+  version "\${project.asciidoctorVersion}"
 }
 
-asciidoctor {
+asciidoctor.enabled = false
+
+// Common settings
+tasks.withType(AsciidoctorTask){
     <% if (!diagram) {%>// <% } %>requires = ['asciidoctor-diagram']
-
-    backends =  ['html5', 'pdf']
-
-    sources {
-      include 'index.adoc'
-    }
-
-    logDocuments true
-
-    outputDir "\$buildDir/docs"
-
-    attributes 'source-highlighter' : 'coderay',
-               'revnumber'          : "\${project.version}",
-               <% if (!email) {%>// <% } %>'email'              : "\${project.email}",
-               <% if (!author) {%>// <% } %>'author'             : "\${project.author}",
-               toc                  : 'left',
-               idprefix             : '',
-               idseparator          : '-',
-               linkcss              : 'true',
-               icons                : 'font',
-               imagesdir            : "./images",
-               // The imagesoutdir is needed to include the generated diagrams
-               // into the pdf.
-               // asciidoctorj-diagram places the generated images
-               // at <outputDir>/pdf/images but the images are expected at
-               // <sourceDir/images by the pdf backend while generating the
-               // pdf. See https://github.com/asciidoctor/asciidoctor-diagram/issues/39
-               // and https://github.com/asciidoctor/asciidoctor-diagram/pull/53
-               imagesoutdir         : "./images",
-               encoding             : 'utf-8'
+    outputDir = file("\$buildDir/docs")
+    logDocuments = true
+    attributes  'source-highlighter': 'coderay',
+                revnumber: "\${project.version}",
+                <% if (!email) {%>// <% } %>email: "\${project.email}",
+                <% if (!author) {%>// <% } %>author: "\${project.author}",
+                toc: 'left',
+                idprefix: '',
+                idseparator: '-',
+                linkcss: 'true',
+                icons: 'font'
 
 }
+
+task asciidocHtml(type: AsciidoctorTask, group: "documentation") {
+    description "Converts asciidoc files with html5 backend"
+    backends = ['html5']
+    attributes imagesdir: "./images"
+}
+
+task asciidocPdf(type: AsciidoctorTask, group: "documentation") {
+    description "Converts asciidoc files with pdf backend"
+    backends = ['pdf']
+    attributes imagesdir: "\${buildDir}/images"
+}
+
+task copyImages(type: Copy, group: "copy") {
+    description "Copy images form asciidoctor sourceDir to the build directory."
+
+    from "\${asciidoctor.sourceDir}/images"
+    into "\${buildDir}/images"
+}
+
+task docs(group: "documentation", description: "run documentation tasks")
+
+asciidocPdf.dependsOn copyImages
+docs.dependsOn asciidocPdf, asciidocHtml

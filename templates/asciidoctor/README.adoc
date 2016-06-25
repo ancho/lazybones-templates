@@ -1,16 +1,14 @@
 = Simple gradle Asciidoctor Template
 
-A lazybones template to generate a gradle based asciidoctor project.
+A sample project to generate a gradle based asciidoctor project.
 
-Run ```gradle asciidoctor``` to generate your documentation.
+Run ```gradle docs``` to generate your documentation.
 
 == Features
 
-* asciidoctor 1.5.2
-* asciidoctor-diagram via gemPath
-
-To use asciidoctor-diagram install via gem.
-Set gemPath in gradle.properties to your ruby gems location ( gemPath=/var/lib/gems/1.9.1 )
+* asciidoctorj 1.5.4
+* asciidoctorj-diagram 1.3.1
+* asciidoctorj-pdf 1.5.0-alpha.11
 
 == Links
 

@@ -1,44 +1,53 @@
+import org.asciidoctor.gradle.AsciidoctorTask
+
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+  }
+}
+
 apply plugin: 'org.asciidoctor.convert'
 
-asciidoctor {
-    <% if (!diagram) {%>// <% } %>requires 'asciidoctor-diagram'
+asciidoctorj {
+  version "\${project.asciidoctorVersion}"
+}
 
-    logDocuments true
+asciidoctor.enabled = false
 
-    outputDir "\$buildDir/docs"
-
-    attributes 'source-highlighter' : 'coderay',
-               'revnumber'          : "\${project.version}",
-               <% if (!email) {%>// <% } %>'email'              : "\${project.email}",
-               <% if (!author) {%>// <% } %>'author'             : "\${project.author}",
-               toc                  : 'left',
-               idprefix             : '',
-               idseparator          : '-',
-               linkcss              : 'true',
-               icons                : 'font',
-               imagesdir            : "images",
-               encoding             : 'utf-8'
+// Common settings
+tasks.withType(AsciidoctorTask){
+    <% if (!diagram) {%>// <% } %>requires = ['asciidoctor-diagram']
+    outputDir = file("\$buildDir/docs")
+    logDocuments = true
+    attributes  'source-highlighter': 'coderay',
+                revnumber: "\${project.version}",
+                <% if (!email) {%>// <% } %>email: "\${project.email}",
+                <% if (!author) {%>// <% } %>author: "\${project.author}",
+                toc: 'left',
+                idprefix: '',
+                idseparator: '-',
+                linkcss: 'true',
+                icons: 'font'
 
 }
 
-task determineGemPath() {
-
-    doLast{
-        def gem_path = project.hasProperty('gemPath') ? project.gemPath : System.env["GEM_PATH"]
-
-        if ( !gem_path ) {
-            def msg = """
-
-                Set GEM_PATH to your ruby gems location. (ex: export GEM_PATH=/var/lib/gems/1.9.1/)
-                Or add the Property gemPath to gradle.properties
-            """
-            println msg
-            gem_path = 'vendor'
-        }
-
-        asciidoctor.gemPath = file(gem_path)
-    }
-
+task asciidocHtml(type: AsciidoctorTask, group: "documentation") {
+    description "Converts asciidoc files with html5 backend"
+    backends = ['html5']
+    attributes imagesdir: "./images"
 }
 
-asciidoctor.dependsOn determineGemPath
+task asciidocPdf(type: AsciidoctorTask, group: "documentation") {
+    description "Converts asciidoc files with pdf backend"
+    backends = ['pdf']
+    attributes imagesdir: "${buildDir}/images"
+}
+
+task docs(group: "documentation", description: "run documentation tasks")
+
+docs.dependsOn asciidocPdf, asciidocHtml

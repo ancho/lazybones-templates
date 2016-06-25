@@ -50,9 +50,9 @@ task asciidocPdf(type: AsciidoctorTask, group: "documentation") {
 
 task copyImages(type: Copy, group: "copy") {
     description "Copy images form asciidoctor sourceDir to the build directory."
-    def imagesdir = "${asciidoctor.sourceDir}/images"
-    from imagesdir
-    into "${buildDir}/images"
+
+    from "\${asciidoctor.sourceDir}/images"
+    into "\${buildDir}/images"
 }
 
 task docs(group: "documentation", description: "run documentation tasks")

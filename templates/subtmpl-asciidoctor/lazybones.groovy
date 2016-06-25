@@ -7,6 +7,7 @@ props.version = parentParams.version
 props.projectName = parentParams.name
 props.author = ask("Give me a name of an Author: ", "", "author")
 props.email = ask("Give me an email Address: ", "", "email")
+props.asciidoctorVersion = ask("Set asciidoctor version [1.5.4]: ", "1.5.4", "asciidoctorVersion")
 props.diagram = ask("Do you want to enable asciidoctor-diagram plugin? (default: no) ","","diagram")
 
 def processTemplates = {

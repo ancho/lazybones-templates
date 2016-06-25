@@ -45,9 +45,17 @@ task asciidocHtml(type: AsciidoctorTask, group: "documentation") {
 task asciidocPdf(type: AsciidoctorTask, group: "documentation") {
     description "Converts asciidoc files with pdf backend"
     backends = ['pdf']
-    attributes imagesdir: "${buildDir}/images"
+    attributes imagesdir: "\${buildDir}/images"
+}
+
+task copyImages(type: Copy, group: "copy") {
+    description "Copy images form asciidoctor sourceDir to the build directory."
+    def imagesdir = "${asciidoctor.sourceDir}/images"
+    from imagesdir
+    into "${buildDir}/images"
 }
 
 task docs(group: "documentation", description: "run documentation tasks")
 
+asciidocPdf.dependsOn copyImages
 docs.dependsOn asciidocPdf, asciidocHtml

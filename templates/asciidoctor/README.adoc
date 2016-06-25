@@ -14,4 +14,5 @@ Run ```gradle docs``` to generate your documentation.
 
 * http://asciidoctor.org/docs/user-manual/[asciidoctor-manual]
 * http://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram]
+* https://github.com/asciidoctor/asciidoctorj[asciidoctorj GitHub repository]
 * http://plantuml.sourceforge.net/[plantuml Syntax and more...]

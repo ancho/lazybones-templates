@@ -1,0 +1,91 @@
+// NOTE the nebula-publishing plugin does not handle signature files anymore
+apply plugin: 'maven-publish'
+
+def projectMeta = {
+    resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+    name project.name
+    description project.description
+    url project.websiteUrl
+    inceptionYear project.inceptionYear
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    issueManagement {
+        system 'github'
+        url project.issuesUrl
+    }
+    scm {
+        url project.vcsUrl
+    }
+    developers {
+        developer {
+            id 'ancho'
+            name 'Frank Becker'
+            email 'frank@calmdevelopment.de'
+            timezone '1'
+            roles {
+                role 'Developer'
+            }
+        }
+    }
+}
+
+publishing.publications {
+    jars(MavenPublication) {
+
+        if (project.tasks.withType(Jar).findByName('sourcesJar')) {
+            artifact sourcesJar
+        }
+        if (project.tasks.withType(Jar).findByName('javadocJar')) {
+            artifact javadocJar
+        }
+
+        pom.withXml {
+            asNode().children().last() + projectMeta
+        }
+        from components.java
+    }
+}
+
+if ( !skipSigning ) {
+    task addSignaturesToPublication(dependsOn: signArchives) {
+        group "publishing"
+        description "add all signatures to the publication"
+
+        doLast {
+            publishing.publications {
+                jars(MavenPublication) {
+                    configurations.signatures.getArtifacts().each { sig ->
+                        logger.debug "adding signature to jars publication: $sig"
+                        artifact(sig) {
+                            extension "jar.asc"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tasks["signPom"].finalizedBy addSignaturesToPublication
+}
+
+// QUESTION should we move manifest creation to general Java plugin config?
+jar {
+  manifest {
+    attributes \
+      'Built-By': System.properties['user.name'],
+      'Created-By': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})".toString(),
+      'Build-Date': buildDateOnly,
+      //'Build-Time': buildTimeOnly,
+      //'Specification-Title': project.name,
+      //'Specification-Version': project.version,
+      //'Specification-Vendor': 'asciidoctor.org',
+      'Implementation-Title': project.name,
+      'Implementation-Version': project.version,
+      'Implementation-Vendor': project.vendor
+  }
+}

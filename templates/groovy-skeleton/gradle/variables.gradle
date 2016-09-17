@@ -1,0 +1,34 @@
+ext {
+    bintray_user = System.env['BINTRAY_USER'] ?: getDefaultProperty('bintrayUsername')
+    bintray_key = System.env['BINTRAY_KEY'] ?: getDefaultProperty('bintrayKey')
+    bintray_repo = System.env['BINTRAY_REPO'] ?: getDefaultProperty('bintrayRepo', 'maven')
+    bintray_org = System.env['BINTRAY_ORG'] ?: getDefaultProperty('bintrayOrg')
+    bintray_licenses = getDefaultPropertyList('bintrayLicenses')
+    bintray_labels = getDefaultPropertyList('bintrayLabels')
+    bintray_publicDownloadNumbers = getDefaultProperty('bintrayPublicDownloadNumbers', false).toBoolean()
+    bintray_dryRun = getDefaultProperty('bintrayDryRun', true).toBoolean()
+    bintray_publish = getDefaultProperty('bintrayPublish', false).toBoolean()
+
+    websiteUrl = getDefaultProperty('websiteUrl')
+    issuesUrl = getDefaultProperty('issuesUrl')
+    vcsUrl = getDefaultProperty('vcsUrl')
+    vcsTag = "v$version"
+    inceptionYear = getDefaultProperty('inceptionYear', new Date()[Calendar.YEAR])
+    vendor = getDefaultProperty("vendor")
+
+    skipSigning = System.env['SKIP_SIGNING'] ?: getDefaultProperty('skipSigning', false).toBoolean()
+
+    buildDateOnly = new Date().getDateString()
+}
+
+String getDefaultProperty(String name, def defaultValue='') {
+    hasProperty(name) ? ext."$name" : defaultValue
+}
+
+def getDefaultPropertyList(String name) {
+    def list = []
+    if (hasProperty(name)){
+        list = ext."$name".split(',').toList().collect { it.trim() }
+    }
+    list
+}

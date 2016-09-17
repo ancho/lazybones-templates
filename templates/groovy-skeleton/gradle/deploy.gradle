@@ -1,0 +1,39 @@
+
+bintray {
+  user = bintray_user
+  key =  project.bintray_key
+
+  publications = ['jars']
+
+  if ( !project.hasProperty('skip.signing') ) {
+    // Copy the signed pom to bintrayDestination
+    filesSpec {
+      from signPom
+      into signPom.bintrayDestination
+    }
+    bintrayUpload.dependsOn signPom
+  }
+
+  dryRun = project.bintray_dryRun.toBoolean()
+  publish = project.bintray_publish.toBoolean()
+
+  pkg {
+    repo = project.bintray_repo
+    userOrg = project.bintray_org
+    name = project.name
+    desc = project.description
+    licenses = project.bintray_licenses
+    labels = project.bintray_labels
+    websiteUrl = project.websiteUrl
+    issueTrackerUrl = project.issuesUrl
+    vcsUrl = project.vcsUrl
+    publicDownloadNumbers = project.bintray_publicDownloadNumbers
+
+    version {
+      name = project.version
+      vcsTag = project.vcsTag
+    }
+  }
+}
+
+bintrayUpload.dependsOn build

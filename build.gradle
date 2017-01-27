@@ -16,7 +16,7 @@ apply plugin: "idea"
 lazybones {
 
     repositoryName = "calmdev/lazybones-templates"
-    repositoryUsername = project.bintrayUserName
+    repositoryUsername = project.bintrayUsername
     repositoryApiKey = project.bintrayKey
 
     template 'groovy-skeleton' includes 'asciidoctor'

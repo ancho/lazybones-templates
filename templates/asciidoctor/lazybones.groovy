@@ -1,3 +1,13 @@
+if ( hasFeature("scmExclusions") ) {
+    scmExclusions   ".lazybones",
+                    ".gradle",
+                    ".idea",
+                    '*.iws',
+                    '*.ipr',
+                    '*.iml',
+                    'build/'
+}
+
 def props = [:]
 def projectName = projectDir.getName()
 
@@ -13,6 +23,7 @@ def files = [
   "gradle/asciidoctor.gradle",
   "gradle.properties"
 ]
+
 
 files.each{ file ->
 

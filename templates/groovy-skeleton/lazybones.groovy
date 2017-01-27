@@ -43,6 +43,7 @@ def copySkeletons = {
 
     copySkeleton( spockSpecTemplate, spockSpecDestination )
     copySkeleton( 'gradle.properties', 'gradle.properties' )
+    copySkeleton( '.gitignore', '.gitignore' )
 }
 
 def deleteSkeletonDir = {
